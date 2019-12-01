@@ -7,26 +7,72 @@
 require('./bootstrap');
 
 window.Vue = require('vue');
+import VueRouter from 'vue-router'
+import BoostrapVue from 'bootstrap-vue'
+import DatePicker from 'vue2-datepicker'
+import VueBootstrapTypeahead from 'vue-bootstrap-typeahead'
+
+Vue.use(VueRouter)
+Vue.use(BoostrapVue)
+Vue.use(DatePicker)
+Vue.use(VueBootstrapTypeahead)
+
+Vue.component('vue-bootstrap-typeahead', VueBootstrapTypeahead)
+
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 /**
- * The following block of code may be used to automatically register your
- * Vue components. It will recursively scan this directory for the Vue
- * components and automatically register them with their "basename".
- *
- * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
+ * Aca definimos las rutas
  */
 
-// const files = require.context('./', true, /\.vue$/i);
-// files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
+const router = new VueRouter({
+    mode: 'history',
+    routes: [
+        // {
+        //     path: '/home',
+        //     name: 'home',
+        //     component: require('./views/Home').default
+        // },
+        // {
+        //     path: '/prueba',
+        //     name: 'prueba',
+        //     component: require('./views/Pruebas').default
+        // },
+        {
+            path: '/persona',
+            name: 'persona',
+            component: require('./views/Persona').default
+        },
+    ],
+});
 
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+Vue.component(
+    "v-listar-persona",
+    require("./components/rrhh/persona/ListarPersona.vue").default
+);
+Vue.component(
+    "v-crear-persona",
+    require("./components/rrhh/persona/CrearPersona.vue").default
+);
+Vue.component(
+    "v-editar-persona",
+    require("./components/rrhh/persona/CrearPersona.vue").default
+);
+
+//Importar
+Vue.component(
+    "v-importar-excel-persona",
+    require("./components/rrhh/persona/ImportarExcel.vue").default
+);
 
 /**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
+ * Inicializamos el constructor (esto debe ir al final)
  */
+import App from './views/App';
 
 const app = new Vue({
     el: '#app',
+    components: { App, DatePicker },
+    router,
 });
