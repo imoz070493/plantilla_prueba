@@ -12,7 +12,7 @@ class MainController extends Controller
      * @param [type] $any
      * @return laravel view
      */
-    public function index($any)
+    public function index()
     {
         return view('Main');
     }

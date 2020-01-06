@@ -12,6 +12,8 @@
     "devDependencies": {
         "axios": "^0.18.1",
         "bootstrap": "^4.1.0",
+        "browser-sync": "^2.26.7",
+        "browser-sync-webpack-plugin": "^2.0.1",
         "cross-env": "^5.1",
         "jquery": "^3.2",
         "laravel-mix": "^4.0.7",
@@ -25,8 +27,10 @@
     },
     "dependencies": {
         "bootstrap-vue": "^2.0.0-rc.24",
+        "js-cookie": "^2.2.1",
         "vue-bootstrap-typeahead": "^0.2.6",
         "vue-router": "^3.0.6",
+        "vue-save-state": "^1.2.0",
         "vue2-datepicker": "^2.12.0"
     }
 }

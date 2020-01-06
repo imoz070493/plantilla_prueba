@@ -16,9 +16,9 @@ class ExcelExportApiController extends Controller
 
         /* enviar el resultado */
         $result = [
-            'msg' => 'creado correctamente',
+            'message' => 'creado correctamente',
             // 'rpt_name' => 'document/products.xlsx',
-            'name_file' => $reporte_persona,
+            'data' => $reporte_persona,
         ];
 
         return response()->json($result);
@@ -31,20 +31,20 @@ class ExcelExportApiController extends Controller
 
         // LOG::info($data);
 
-        $name_file = PersonaImport::guardarExcel($request->excel_document);
+        $data = PersonaImport::guardarExcel($request->excel_document);
 
-        $response = PersonaImport::guardarDatos($name_file);
+        $response = PersonaImport::guardarDatos($data);
 
         if($response==2){
             /* enviar el resultado */
             return response()->json([
-                'msg' => 'creado correctamente',
-                'name_file' => $name_file,
+                'message' => 'creado correctamente',
+                'data' => $data,
                 'id' => $response,
             ]);
         }else{
             return response()->json([
-                'msg' => 'error al importar',
+                'message' => 'error al importar',
                 'data' => $response,
             ], 500);
         }       

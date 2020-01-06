@@ -26,31 +26,19 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
  * Aca definimos las rutas
  */
 
+console.log(require('@/routes/StaticRoute.js'));
+
 const router = new VueRouter({
     mode: 'history',
-    routes: [
-        // {
-        //     path: '/home',
-        //     name: 'home',
-        //     component: require('./views/Home').default
-        // },
-        // {
-        //     path: '/prueba',
-        //     name: 'prueba',
-        //     component: require('./views/Pruebas').default
-        // },
-        {
-            path: '/persona',
-            name: 'persona',
-            component: require('./views/Persona').default
-        },
-    ],
+    routes: require('@/routes/StaticRoute.js').default
+
 });
 
 Vue.component(
     "v-listar-persona",
     require("./components/rrhh/persona/ListarPersona.vue").default
 );
+/*
 Vue.component(
     "v-crear-persona",
     require("./components/rrhh/persona/CrearPersona.vue").default
@@ -59,11 +47,22 @@ Vue.component(
     "v-editar-persona",
     require("./components/rrhh/persona/CrearPersona.vue").default
 );
-
+*/
 //Importar
-Vue.component(
+/**
+ * 
+ Vue.component(
     "v-importar-excel-persona",
     require("./components/rrhh/persona/ImportarExcel.vue").default
+);
+*/
+Vue.component(
+    "loading-bar",
+    require("./components/otros/LoadingBar.vue").default
+);
+Vue.component(
+    "el-dialog",
+    require("./components/otros/ElDialog.vue").default
 );
 
 /**

@@ -1,0 +1,201 @@
+  .btn.btn-basic,
+  .btn-basic {
+    @include button-variant(#eee, #ddd, #ddd, #ddd, #ccc, #aaa);
+    color: #000;
+  }
+
+  .btn.btn-morado,
+  .btn-morado {
+    @include button-variant(#874c97, #683a75, #ccabd5, #d6bcdd, #3e2345, #5f356a);
+
+    color: #fff;
+  }
+
+  /*
+
+  .btn-custom-outline {
+    @include button-outline-variant(#222222, #cece19, #222222, #cece19);
+  }
+
+*/
+
+
+  /*------------------------------------
+- COLOR morado
+------------------------------------
+
+  $morado_t1: #874c97;
+  $morado_t2: #683a75;
+  $morado_t3: #ccabd5;
+  $morado_t4: #d6bcdd;
+  $morado_t5: #3e2345;
+  $morado_t6: #5f356a;
+  $morado_t7: #71407f;
+  $morado_t8: #1f1123;
+  $morado_t9: #decae4;
+
+  $morado_shadow: rgba(135, 76, 151, 0.5);
+  $morado_text_color_dark_bright: #fff;
+
+
+  .alert-morado {
+    color: $morado_t5;
+    background-color: $morado_t9;
+    border-color: $morado_t4;
+  }
+
+  .alert-morado hr {
+    border-top-color: $morado_t3;
+  }
+
+  .alert-morado .alert-link {
+    color: $morado_t8;
+  }
+
+  .badge-morado {
+    color: $morado_text_color_dark_bright;
+    background-color: $morado_t1;
+  }
+
+  .badge-morado[href]:hover,
+  .badge-morado[href]:focus {
+    color: $morado_text_color_dark_bright;
+    background-color: $morado_t2;
+  }
+
+  .bg-morado {
+    background-color: $morado_t1 !important;
+  }
+
+  a.bg-morado:hover,
+  a.bg-morado:focus,
+  button.bg-morado:hover,
+  button.bg-morado:focus {
+    background-color: $morado_t2 !important;
+  }
+
+  .border-morado {
+    border-color: $morado_t1 !important;
+  }
+
+  .btn.btn-morado,
+  .btn-morado {
+    color: $morado_text_color_dark_bright;
+    background-color: $morado_t1;
+    border-color: $morado_t1;
+  }
+
+  .btn.btn-morado:hover,
+  .btn-morado:hover {
+    color: $morado_text_color_dark_bright;
+    background-color: $morado_t7;
+    border-color: $morado_t2;
+  }
+
+  .btn.btn-morado:focus,
+  .btn.btn-morado.focus,
+
+  .btn-morado:focus,
+  .btn-morado.focus {
+    box-shadow: 0 0 0 0.2rem $morado_shadow;
+  }
+
+  .btn-morado.disabled,
+  .btn-morado:disabled {
+    color: $morado_text_color_dark_bright;
+    background-color: $morado_t1;
+    border-color: $morado_t1;
+  }
+
+  .btn-morado:not(:disabled):not(.disabled):active,
+  .btn-morado:not(:disabled):not(.disabled).active,
+  .show>.btn-morado.dropdown-toggle {
+    color: $morado_text_color_dark_bright;
+    background-color: $morado_t2;
+    border-color: $morado_t6;
+  }
+
+  .btn-morado:not(:disabled):not(.disabled):active:focus,
+  .btn-morado:not(:disabled):not(.disabled).active:focus,
+  .show>.btn-morado.dropdown-toggle:focus {
+    box-shadow: 0 0 0 0.2rem $morado_shadow;
+  }
+
+  .btn-outline-morado {
+    color: $morado_t1;
+    background-color: transparent;
+    border-color: $morado_t1;
+  }
+
+  .btn-outline-morado:hover {
+    color: $morado_text_color_dark_bright;
+    background-color: $morado_t1;
+    border-color: $morado_t1;
+  }
+
+  .btn-outline-morado:focus,
+  .btn-outline-morado.focus {
+    box-shadow: 0 0 0 0.2rem $morado_shadow;
+  }
+
+  .btn-outline-morado.disabled,
+  .btn-outline-morado:disabled {
+    color: $morado_t1;
+    background-color: transparent;
+  }
+
+  .btn-outline-morado:not(:disabled):not(.disabled):active,
+  .btn-outline-morado:not(:disabled):not(.disabled).active,
+  .show>.btn-outline-morado.dropdown-toggle {
+    color: $morado_text_color_dark_bright;
+    background-color: $morado_t1;
+    border-color: $morado_t1;
+  }
+
+  .btn-outline-morado:not(:disabled):not(.disabled):active:focus,
+  .btn-outline-morado:not(:disabled):not(.disabled).active:focus,
+  .show>.btn-outline-morado.dropdown-toggle:focus {
+    box-shadow: 0 0 0 0.2rem $morado_shadow;
+  }
+
+  .list-group-item-morado {
+    color: $morado_t5;
+    background-color: $morado_t4;
+  }
+
+  .list-group-item-morado.list-group-item-action:hover,
+  .list-group-item-morado.list-group-item-action:focus {
+    color: $morado_t5;
+    background-color: $morado_t3;
+  }
+
+  .list-group-item-morado.list-group-item-action.active {
+    color: $morado_text_color_dark_bright;
+    background-color: $morado_t5;
+    border-color: $morado_t5;
+  }
+
+  .table-morado,
+  .table-morado>th,
+  .table-morado>td {
+    background-color: $morado_t4;
+  }
+
+  .table-hover .table-morado:hover {
+    background-color: $morado_t3;
+  }
+
+  .table-hover .table-morado:hover>td,
+  .table-hover .table-morado:hover>th {
+    background-color: $morado_t3;
+  }
+
+  .text-morado {
+    color: $morado_t1 !important;
+  }
+
+  a.text-morado:hover,
+  a.text-morado:focus {
+    color: $morado_t2 !important;
+  }
+  */

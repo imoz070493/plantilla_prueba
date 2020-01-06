@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 
 use DB;
-
+use Carbon\Carbon;
 class Persona extends Model
 {
 	protected $table = 'personas';
@@ -25,55 +25,80 @@ class Persona extends Model
         'direccion',
         'telefono',
         'correo_electronico',
+        'activo',
+    ];
+    protected $cast=[
+        'fecha_nacimiento' => 'date',
+        'activo'=>'boolean'
     ];
 
     protected $guarded = [
 
     ];
 
-	//PARAMETRO CONVERTIR A ARRAY
-    public static function guardarDatos($request){
+/**
+ * Columnas que sera devueltas por las consultas
+ *
+ * @var array
+ */
+     public static  $campos_a_devolver=[
+'id','nombres','apellido_paterno','apellido_materno','tipo_documento','num_documento','fecha_nacimiento','sexo','direccion','telefono','correo_electronico','activo'
+    ];
+
+    public static function guardarDatos($datos){
         
-        if(isset($request['id'])){
-            $persona = Persona::findOrFail($request['id']);
+        if(isset($datos['id'])){
+            $persona = Persona::findOrFail($datos['id']);
         }else{
             $persona = new Persona();
         }
-
-        $persona->nombres = isset($request['nombres'])?$request['nombres']:'';
-        $persona->apellido_paterno = isset($request['apellido_paterno'])?$request['apellido_paterno']:'';
-        $persona->apellido_materno = isset($request['apellido_materno'])?$request['apellido_materno']:'';
-        $persona->tipo_documento = isset($request['tipo_documento'])?$request['tipo_documento']:'';
-        $persona->num_documento = isset($request['num_documento'])?$request['num_documento']:'';
-        $persona->fecha_nacimiento = isset($request['fecha_nacimiento'])?$request['fecha_nacimiento']:'';
-        $persona->sexo = isset($request['sexo'])?$request['sexo']:'';
-        $persona->direccion = isset($request['direccion'])?$request['direccion']:'';
-        $persona->telefono = isset($request['telefono'])?$request['telefono']:'';
-        $persona->correo_electronico = isset($request['correo_electronico'])?$request['correo_electronico']:'';
-
+/**
+ * Usar array_key_exists e if en lugar de isset para: 
+ * 1) no actualizar datos cuando estos no se envian p.e. 
+ *  request=['clave'=>123] -> 
+ *      array_key_exists('clave_no_existente',$datos) devuelve false y mantiene el valor previo
+ *      array_key_exists('clave',$datos) devuelve true y actualiza solo ese atributo
+ * 2) actualizar datos null p.e 
+ *  request=['clave'=>null] -> array_key_exists('clave',$datos) devuelve true y actualiza el campo a null
+ *  request=['clave'=>null] -> isset($datos['clave']) devuelve false y no actualiza el campo
+ *   
+ */
+        if(array_key_exists('nombres',$datos)) $persona->nombres = $datos['nombres'];
+        if(array_key_exists('apellido_paterno',$datos)) $persona->apellido_paterno = $datos['apellido_paterno'];
+        if(array_key_exists('apellido_materno',$datos)) $persona->apellido_materno = $datos['apellido_materno'];
+        if(array_key_exists('tipo_documento',$datos)) $persona->tipo_documento = $datos['tipo_documento'];
+        if(array_key_exists('num_documento',$datos)) $persona->num_documento = $datos['num_documento'];
+        if(array_key_exists('fecha_nacimiento',$datos)) $persona->fecha_nacimiento = Carbon::parse($datos['fecha_nacimiento']);
+        if(array_key_exists('sexo',$datos)) $persona->sexo = $datos['sexo'];
+        if(array_key_exists('direccion',$datos)) $persona->direccion = $datos['direccion'];
+        if(array_key_exists('telefono',$datos)) $persona->telefono = $datos['telefono'];
+        if(array_key_exists('correo_electronico',$datos)) $persona->correo_electronico = $datos['correo_electronico'];
+        if(array_key_exists('activo',$datos)) $persona->activo = $datos['activo'];
         $persona->save();
 
         return $persona;
     }  
 
     public static function listarPersonas(){
-        $personas = DB::table('personas')
-                ->select('id','nombres','apellido_paterno','apellido_materno','tipo_documento','num_documento','fecha_nacimiento','sexo','direccion','telefono','correo_electronico')
+        $personas = Persona
+                ::select(self::$campos_a_devolver)
                 ->orderBy('id','desc')
                 ->paginate(5);
         return $personas;
     }
 
     public static function listarPersonasReporte(){
-        $personas = DB::table('personas')
-                ->select('id','nombres','apellido_paterno','apellido_materno','tipo_documento','num_documento','fecha_nacimiento','sexo','direccion','telefono','correo_electronico')
-                ->orderBy('id','desc')
-                ->get();
+        /**
+         * Usar el modelo en lugar de eloquent para aprovechar las funcionalidades del framework()
+         */
+        $personas= Persona::select(self::$campos_a_devolver)
+        ->orderBy('id','desc')
+        ->get();
         return $personas;
     }
 
     public static function buscarPersonas($name){
-        $personas = DB::table('personas')
+        $personas= Persona::select(self::$campos_a_devolver)
                 ->orderBy('id','desc')
                 ->where('nombres','LIKE','%'.$name.'%')
                 ->orWhere('apellido_paterno','LIKE','%'.$name.'%')
@@ -87,6 +112,9 @@ class Persona extends Model
 
 
     public static function eliminarDatos($id){
-        Persona::where('id',$id)->delete();
+        /**
+         * siempre devolver un resultado
+         */
+        return Persona::where('id',$id)->delete();
     }
 }

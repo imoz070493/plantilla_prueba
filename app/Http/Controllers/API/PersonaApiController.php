@@ -14,15 +14,25 @@ class PersonaApiController extends Controller
 {
 	public function index(Request $request)
     {
-    	
+        
+        /**
+         * ToDo: Implementar ordenamiento
+         * Todo: Implementar paginacion usando como parametro el numero de items por página 
+         * Todo: Unir Lista y busqueda en una sola funcion 
+         * Todo: optimizar la consulta en caso sea una consula sin filtros
+         * Todo: validar los parametros de busqueda 
+         */
+
         $personas = Persona::listarPersonas();
 
         // LOG::info($data);
 
         $result = [
-            'msg' => 'listado correctamente',
-            'personas' => $personas,
-        ];
+            //usamos message en lugar de msg para que se use los mismos campos de laravel
+            'message' => 'listado correctamente',
+            //devolvemos TODOS los resultado como data, para poder reutilizar componentes en la interfaz
+            'data' => $personas
+                ];
         return response()->json($result);
     }
 
@@ -35,8 +45,8 @@ class PersonaApiController extends Controller
         $persona = Persona::guardarDatos($request->all());
 
         $result = [
-            'msg' => 'creado correctamente',
-            'persona' => $persona,
+            'message' => 'creado correctamente',
+            'data' => $persona,
         ];
         return response()->json($result);
     }
@@ -50,8 +60,8 @@ class PersonaApiController extends Controller
         $persona = Persona::guardarDatos($data);
         
         $result = [
-            'msg' => 'Actualizado correctamente',
-            'persona' => $persona,
+            'message' => 'Actualizado correctamente',
+            'data' => $persona,
         ];
         return response()->json($result);
 
@@ -69,9 +79,9 @@ class PersonaApiController extends Controller
         if ($doc % 5 == 0) {
 
             return response()->json([
-                'msg' => 'error al eliminar',
+                'message' => 'error al eliminar',
                 'data' => [
-                    'tipo_doc' => $tipo_doc,
+                    'tipo_doc' => $doc,
                     'doc' => $doc,
                 ],
             ], 500);
@@ -82,7 +92,7 @@ class PersonaApiController extends Controller
         $doc = 0;
 
         $result = [
-            'msg' => 'Eliminado correctamente',
+            'message' => 'Eliminado correctamente',
             'data' => [
                 'tipo_doc' => $tipo_doc,
                 'doc' => $doc,
@@ -96,22 +106,28 @@ class PersonaApiController extends Controller
         $tipos_documento = TipoDocumento::listaTipoDocumento();
 
         $result = [
-            'msg' => 'listado correctamente',
-            'tipos_documento' => $tipos_documento,
+            'message' => 'listado correctamente',
+            'data' => $tipos_documento,
         ];
         return response()->json($result);
     }
 
-    public function buscarPersona($name='', Request $request)
+    public function buscarPersona(Request $request)
     {
         /* obtenemos las varibles de busqueda */
-
+        /**
+         * Todo:validar la busqueda y leer tambien datos de ordenamiensot
+         */
+        $name='';
+/**
+ * Todo: completar y unir con listado
+ */
         $personas = Persona::buscarPersonas($name);
 
         /* enviar el resultado */
         $result = [
-            'msg' => 'listado correctamente',
-            'personas' => $personas,
+            'message' => 'listado correctamente',
+            'data' => $personas,
         ];
 
         return response()->json($result);
